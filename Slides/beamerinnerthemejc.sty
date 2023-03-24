@@ -1,0 +1,114 @@
+\mode<presentation>
+
+\tikzstyle{block} = [draw, fill=blue!67, rectangle,
+  minimum height=3em, minimum width=6em]
+\tikzstyle{sum} = [draw, fill=blue!37, circle, node distance=1cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+
+% Title page
+\defbeamertemplate*{title page}{jc}[1][]
+{
+  \begin{minipage}{.6\textwidth}
+    \vfill
+    \centering
+    \resizebox{.75\textwidth}{!}{
+    \begin{tikzpicture}[
+        auto,
+        >=stealth,
+      ]
+      
+      \node[
+        block,
+        fill=red!67,
+      ] (plant) at (0, 0) {
+        \textcolor{white}{\small \textbf{Plant}}
+      };
+      
+      \node[
+        block,
+        align=center,
+      ] (observer) at (3, -3) {
+        \small \textbf{State} \\
+        \textbf{Estimator}
+      };
+      
+      \node[
+        block,
+        align=center,
+      ] (controller) at (-3, -3) {
+        \small \textbf{Regulator}
+      };
+      
+      \node[input, name=tmp] at (-3, -2) {};
+      
+      \draw[->, thick] (observer) -- (controller) node [midway, above] {$\hat{\vb{x}}$};
+      \draw[->, thick] (controller.north) |- (plant.west) node [midway, above right] {$\vb{u}$};
+      \draw[->, thick] (plant.east) -| (observer.60) node [midway, above left] {$\vb{y}$};
+      \draw[->, thick] (tmp) -| (observer.120);
+      
+      \draw[dashed, ultra thick] (-5, -1.5) -- (5, -1.5) -- (5, -4.5) -- (-5, -4.5) -- cycle;
+      \node[] at (-4.15, -4.25) {\small \textbf{Control}};
+      
+    \end{tikzpicture}
+    }
+
+    \bigskip
+    \bigskip
+
+    \includegraphics[width=\textwidth]{von_karman}
+  \end{minipage}%
+  \hfill
+  \begin{minipage}{.32\textwidth}
+    \begin{flushright}
+      \includegraphics[width=.75\textwidth]{lorenz_singular_function.png}
+
+      \bigskip
+
+      \usebeamerfont{title}\large\textbf\inserttitle\par
+      \bigskip
+      \usebeamerfont{author}\small\textcolor{white}{\insertauthor}%
+    \end{flushright}
+    \vfill
+  \end{minipage}
+%%   \begin{tikzpicture}[overlay, remember picture]
+
+%%     \node[inner sep=0pt,outer sep=0pt,anchor=north east] at (current page.north east)
+%%     {\includegraphics[width=\the\paperwidth,height=\the\paperheight]{background.jpg}};
+
+%%   \end{tikzpicture}
+
+%%   \vskip2cm%
+%%   \begin{beamercolorbox}[center, #1]{title page header}
+%%     \usebeamerfont{title}\Large\textbf\inserttitle\par%
+%%   \end{beamercolorbox}%
+%%   \vskip0.5cm%
+%%   \begin{beamercolorbox}[center, #1]{author}
+%%     \usebeamerfont{author}\textcolor{black}{\insertauthor}%
+%%   \end{beamercolorbox}
+%%   \vskip0.25cm%
+%%   \begin{beamercolorbox}[center, #1]{date}
+%%     \usebeamerfont{author}\small\textcolor{black}{\insertdate}%
+%%   \end{beamercolorbox}
+%%   \vfill
+}
+
+% Section page
+\defbeamertemplate*{section page}{jc}[1][]
+{ 
+  \begin{tikzpicture}[overlay, remember picture]
+
+    \node[inner sep=0pt,outer sep=0pt,anchor=north east] at (current page.north east)
+    {\includegraphics[width=\the\paperwidth,height=\the\paperheight]{background.jpg}};
+
+  \end{tikzpicture}
+
+  \vskip2cm%
+  \begin{beamercolorbox}[center, #1]{section title}
+    \usebeamerfont{title}\Large\textbf\insertsection\par%
+  \end{beamercolorbox}%
+  \vfill
+}
+
+\mode
+<all>
